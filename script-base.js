@@ -109,8 +109,13 @@ Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate,
   if (this.generatorName.toLowerCase() === 'service') {
     this.cameledName = this.classedName;
   }
+  if(this.generatorName.toLowerCase() === 'controller'){
+    this.cameledName = this.cameledName.replace('-','');
+    this.classedName = this.classedName.replace('-','');
+    this.name = this.name.toLowerCase();
+  }
 
-  this.appTemplate(appTemplate, path.join('scripts', targetDirectory, this.name));
+  this.appTemplate(appTemplate, path.join('scripts', targetDirectory, this.name + '.controller'));
   this.testTemplate(testTemplate, path.join(targetDirectory, this.name));
   if (!skipAdd) {
     this.addScriptToIndex(path.join(targetDirectory, this.name));
